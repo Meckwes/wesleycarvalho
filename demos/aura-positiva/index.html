@@ -1,0 +1,210 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#6d1e33" />
+  <title>Aura Positiva — vista sua melhor energia</title>
+  <meta name="description" content="Projeto demonstrativo autoral de uma marca brasileira de moda editorial." />
+  <style>
+    :root {
+      --wine: #9b2251;
+      --wine-dark: #4a1028;
+      --rose: #ff8caf;
+      --blush: #ffddea;
+      --sand: #fff0ce;
+      --paper: #fffaf1;
+      --sun: #e6f86e;
+      --ink: #241b1c;
+      --muted: #736668;
+      --line: rgba(36,27,28,.16);
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { color: var(--ink); background: var(--paper); font-family: Arial, Helvetica, sans-serif; line-height: 1.45; }
+    a { color: inherit; text-decoration: none; }
+    button { color: inherit; font: inherit; cursor: pointer; }
+    .wrap { width: min(1240px, calc(100% - 48px)); margin: 0 auto; }
+    .demo-note { padding: 7px 16px; color: #f7dde3; background: var(--wine-dark); font-size: 11px; font-weight: 700; letter-spacing: .17em; text-align: center; text-transform: uppercase; }
+    header { position: absolute; inset: 33px 0 auto; z-index: 20; color: white; }
+    .nav { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 20px; padding: 15px 0; border-bottom: 1px solid rgba(255,255,255,.35); }
+    nav { display: flex; gap: 26px; font-size: 14px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; }
+    .logo { font-family: Georgia, "Times New Roman", serif; font-size: 28px; letter-spacing: .17em; text-align: center; }
+    .nav-actions { display: flex; justify-content: flex-end; gap: 18px; font-size: 14px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; }
+    .bag { padding: 0; color: white; background: none; border: 0; }
+
+    .hero { position: relative; min-height: 820px; overflow: hidden; color: white; background: var(--wine); }
+    .hero::before { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(48,6,24,.92) 0%, rgba(77,11,39,.56) 42%, rgba(64,8,30,.12) 76%), url("assets/aura-hero.webp") center 24% / cover no-repeat; }
+    .hero::after { content: ""; position: absolute; width: 360px; height: 360px; right: -110px; top: 18%; border: 1px solid rgba(230,248,110,.55); border-radius: 50%; box-shadow: 0 0 0 55px rgba(230,248,110,.06), 0 0 0 110px rgba(230,248,110,.035); }
+    .hero-inner { position: relative; z-index: 3; min-height: 820px; display: flex; align-items: flex-end; padding: 190px 0 92px; }
+    .hero-copy { max-width: 700px; }
+    .kicker { display: inline-block; margin-bottom: 24px; font-size: 11px; font-weight: 700; letter-spacing: .2em; text-transform: uppercase; }
+    h1 { font-family: Georgia, "Times New Roman", serif; font-size: clamp(68px, 10vw, 136px); font-weight: 400; line-height: .79; letter-spacing: -.055em; }
+    h1 em { display: block; margin-left: 14%; color: var(--sun); font-weight: 400; }
+    .hero-copy p { max-width: 490px; margin: 36px 0 30px; color: rgba(255,255,255,.78); font-size: 16px; }
+    .hero-cta { display: inline-flex; align-items: center; gap: 24px; padding: 16px 0; border-bottom: 1px solid white; font-size: 14px; font-weight: 800; letter-spacing: .11em; text-transform: uppercase; }
+    .hero-number { position: absolute; right: 0; bottom: 92px; display: flex; align-items: center; gap: 18px; color: rgba(255,255,255,.72); font-size: 11px; letter-spacing: .14em; text-transform: uppercase; }
+    .hero-number strong { color: white; font-family: Georgia, serif; font-size: 42px; font-weight: 400; letter-spacing: 0; }
+
+    .marquee { overflow: hidden; color: var(--wine); background: var(--blush); border-bottom: 1px solid rgba(109,30,51,.2); }
+    .marquee-inner { width: max-content; display: flex; align-items: center; gap: 26px; padding: 17px 0; font-family: Georgia, serif; font-size: 17px; font-style: italic; animation: move 22s linear infinite; }
+    @keyframes move { to { transform: translateX(-50%); } }
+
+    .collection { padding: 116px 0; }
+    .section-head { display: grid; grid-template-columns: 1fr 1.3fr; align-items: end; gap: 50px; margin-bottom: 48px; }
+    .section-label { color: var(--wine); font-size: 12px; font-weight: 800; letter-spacing: .17em; text-transform: uppercase; }
+    h2 { font-family: Georgia, serif; font-size: clamp(46px, 6vw, 76px); font-weight: 400; line-height: .95; letter-spacing: -.045em; }
+    .section-head p { max-width: 470px; justify-self: end; color: var(--muted); }
+    .products { display: grid; grid-template-columns: 1.1fr .9fr .9fr; gap: 16px; }
+    .product { position: relative; overflow: hidden; min-height: 580px; background: var(--sand); }
+    .product-photo { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform .65s ease; }
+    .product:hover .product-photo { transform: scale(1.035); }
+    .product-badge { position: absolute; left: 18px; top: 18px; z-index: 2; padding: 8px 11px; color: var(--wine); background: rgba(250,247,240,.86); font-size: 9px; font-weight: 800; letter-spacing: .13em; text-transform: uppercase; backdrop-filter: blur(8px); }
+    .product-info { position: absolute; inset: auto 0 0; z-index: 3; display: flex; align-items: end; justify-content: space-between; gap: 15px; padding: 70px 22px 22px; color: white; background: linear-gradient(transparent, rgba(35,20,23,.82)); }
+    .product-info h3 { font-family: Georgia, serif; font-size: 25px; font-weight: 400; }
+    .product-info p { color: rgba(255,255,255,.82); font-size: 13px; }
+    .add { width: 42px; height: 42px; flex: none; color: white; background: transparent; border: 1px solid rgba(255,255,255,.6); border-radius: 50%; font-size: 22px; }
+
+    .editorial { color: var(--paper); background: var(--wine-dark); }
+    .editorial-grid { display: grid; grid-template-columns: .95fr 1.05fr; min-height: 720px; }
+    .editorial-copy { display: flex; flex-direction: column; justify-content: center; padding: 90px 10% 90px max(24px, calc((100vw - 1240px) / 2)); }
+    .editorial-copy h2 { max-width: 600px; margin: 20px 0 30px; }
+    .editorial-copy h2 em { color: var(--rose); font-weight: 400; }
+    .editorial-copy p { max-width: 520px; color: #cbb9bd; }
+    .editorial-art { position: relative; overflow: hidden; background: #b6607b; }
+    .editorial-art img { width: 100%; height: 100%; object-fit: cover; }
+
+    .voices { padding: 110px 0; color: var(--wine-dark); background: var(--sun); }
+    .voices-head { display: grid; grid-template-columns: 1fr 1fr; gap: 50px; align-items: end; margin-bottom: 42px; }
+    .voices-head p { max-width: 470px; justify-self: end; font-size: 16px; }
+    .voice-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    .voice { min-height: 290px; display: flex; flex-direction: column; justify-content: space-between; padding: 28px; background: var(--paper); border: 1px solid rgba(74,16,40,.16); }
+    .voice:nth-child(2) { color: white; background: var(--wine); }
+    .voice p { font-family: Georgia, serif; font-size: 22px; line-height: 1.35; }
+    .voice-person { display: flex; align-items: center; gap: 12px; margin-top: 28px; font-size: 14px; }
+    .voice-avatar { width: 42px; height: 42px; display: grid; place-items: center; flex: none; color: white; background: var(--wine); border-radius: 50%; font-weight: 800; }
+    .voice:nth-child(2) .voice-avatar { color: var(--wine); background: var(--sun); }
+    .voice-person small { display: block; opacity: .65; font-size: 12px; }
+    .illustrative { margin-top: 16px; font-size: 12px; opacity: .7; }
+
+    .journal { padding: 110px 0; background: var(--sand); }
+    .journal-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-top: 45px; }
+    .story { min-height: 390px; display: flex; flex-direction: column; justify-content: flex-end; padding: 30px; color: white; background: linear-gradient(180deg, transparent, rgba(51,9,27,.82)), url("assets/aura-look-1.webp") center / cover no-repeat; }
+    .story:last-child { color: white; background: linear-gradient(180deg, transparent, rgba(51,9,27,.8)), url("assets/aura-look-2.webp") center / cover no-repeat; }
+    .story span { margin-bottom: 10px; font-size: 10px; font-weight: 800; letter-spacing: .15em; text-transform: uppercase; }
+    .story h3 { max-width: 520px; font-family: Georgia, serif; font-size: 35px; font-weight: 400; line-height: 1.02; }
+
+    footer { padding: 58px 0; color: #dcc9cd; background: #2b0c15; }
+    .footer-row { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 25px; }
+    footer .logo { color: white; }
+    footer small:last-child { text-align: right; }
+    .toast { position: fixed; right: 22px; bottom: 22px; z-index: 50; padding: 14px 18px; color: white; background: var(--wine); box-shadow: 0 14px 38px rgba(40,10,20,.25); opacity: 0; transform: translateY(12px); pointer-events: none; transition: .25s ease; }
+    .toast.show { opacity: 1; transform: none; }
+
+    @media (max-width: 880px) {
+      nav { display: none; }
+      .hero::after { width: 55vw; right: -4%; opacity: .7; }
+      .products { grid-template-columns: 1fr 1fr; }
+      .product:first-child { grid-column: 1 / -1; }
+      .voice-grid { grid-template-columns: 1fr 1fr; }
+      .voice:last-child { grid-column: 1 / -1; }
+      .editorial-grid { grid-template-columns: 1fr; }
+      .editorial-art { min-height: 560px; }
+    }
+    @media (max-width: 600px) {
+      .wrap { width: min(100% - 28px, 1240px); }
+      .nav { grid-template-columns: 1fr auto; }
+      .nav-actions a { display: none; }
+      .hero { min-height: 760px; }
+      .hero-inner { min-height: 760px; align-items: center; padding: 175px 0 90px; }
+      .hero-copy { align-self: center; }
+      .hero::after { width: 90vw; right: -34%; opacity: .34; }
+      .hero-number { display: none; }
+      .section-head { grid-template-columns: 1fr; }
+      .section-head p { justify-self: start; }
+      .products { grid-template-columns: 1fr; }
+      .product:first-child { grid-column: auto; }
+      .product { min-height: 500px; }
+      .voices-head { grid-template-columns: 1fr; gap: 20px; }
+      .voices-head p { justify-self: start; }
+      .voice-grid { grid-template-columns: 1fr; }
+      .voice:last-child { grid-column: auto; }
+      .journal-grid { grid-template-columns: 1fr; }
+      .footer-row { grid-template-columns: 1fr; text-align: center; }
+      footer small:last-child { text-align: center; }
+    }
+  </style>
+</head>
+<body>
+  <div class="demo-note">Projeto demonstrativo autoral · Wesley Carvalho</div>
+  <header>
+    <div class="wrap nav">
+      <nav aria-label="Navegação principal"><a href="#colecao">Coleção</a><a href="#manifesto">Manifesto</a><a href="#vozes">Vozes</a></nav>
+      <a class="logo" href="#inicio">AURA POSITIVA</a>
+      <div class="nav-actions"><a href="#colecao">Buscar</a><button class="bag">Sacola (<span id="bagCount">0</span>)</button></div>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" id="inicio">
+      <div class="wrap hero-inner">
+        <div class="hero-copy">
+          <span class="kicker">Coleção 01 · Luz de Dentro</span>
+          <h1>Vista sua <em>energia.</em></h1>
+          <p>Cores que despertam, formas que acolhem e peças feitas para acompanhar o corpo com liberdade, presença e alegria.</p>
+          <a class="hero-cta" href="#colecao">Conhecer a coleção <span>↗</span></a>
+        </div>
+        <div class="hero-number"><strong>01</strong><span>Peças para<br>todos os ritmos</span></div>
+      </div>
+    </section>
+
+    <div class="marquee" aria-hidden="true"><div class="marquee-inner"><span>feito no Brasil</span><span>✦</span><span>corpo livre</span><span>✦</span><span>cores com intenção</span><span>✦</span><span>edição limitada</span><span>✦</span><span>feito no Brasil</span><span>✦</span><span>corpo livre</span><span>✦</span><span>cores com intenção</span><span>✦</span><span>edição limitada</span><span>✦</span></div></div>
+
+    <section class="collection" id="colecao">
+      <div class="wrap">
+        <div class="section-head"><div><span class="section-label">Nova coleção</span><h2>Cor, movimento<br>e liberdade.</h2></div><p>Texturas marcantes, modelagens confortáveis e uma paleta que encontra beleza em todos os tons e ritmos.</p></div>
+        <div class="products">
+          <article class="product"><span class="product-badge">Edição limitada</span><img class="product-photo" src="assets/aura-look-1.webp" alt="Look editorial em tons claros" loading="lazy" width="900" height="1300" /><div class="product-info"><div><h3>Vestido Horizonte</h3><p>Areia · R$ 489</p></div><button class="add" aria-label="Adicionar Vestido Horizonte">＋</button></div></article>
+          <article class="product"><span class="product-badge">Novo</span><img class="product-photo" src="assets/aura-hero.webp" alt="Mulheres usando looks coloridos" loading="lazy" width="900" height="1300" /><div class="product-info"><div><h3>Conjunto Vibra</h3><p>Vinho · R$ 579</p></div><button class="add" aria-label="Adicionar Conjunto Vibra">＋</button></div></article>
+          <article class="product"><span class="product-badge">Essencial</span><img class="product-photo" src="assets/aura-look-2.webp" alt="Look com tecido colorido em movimento" loading="lazy" width="900" height="1300" /><div class="product-info"><div><h3>Camisa Solar</h3><p>Coral · R$ 329</p></div><button class="add" aria-label="Adicionar Camisa Solar">＋</button></div></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="editorial" id="manifesto">
+      <div class="editorial-grid">
+        <div class="editorial-copy"><span class="section-label" style="color:#ff8caf">Nosso manifesto</span><h2>Mais cor.<br><em>Mais de você.</em></h2><p>A Aura Positiva nasce para celebrar expressão, conforto e diversidade. Cada peça convida você a ocupar espaço com leveza e a vestir o que faz bem.</p></div>
+        <div class="editorial-art"><img src="assets/aura-look-2.webp" alt="Mulher sorrindo entre tecidos coloridos" loading="lazy" width="1200" height="1500" /></div>
+      </div>
+    </section>
+
+    <section class="voices" id="vozes">
+      <div class="wrap">
+        <div class="voices-head"><div><span class="section-label">Quem veste, sente</span><h2>Roupa boa muda<br>o jeito de chegar.</h2></div><p>Modelagens pensadas para acompanhar corpos reais e cores que deixam cada combinação mais pessoal.</p></div>
+        <div class="voice-grid">
+          <article class="voice"><p>“A modelagem veste sem prender e a cor levanta qualquer produção. É daquelas peças que fazem tudo funcionar.”</p><div class="voice-person"><span class="voice-avatar">M</span><span><strong>Marina A.</strong><small>Cliente da coleção Luz de Dentro</small></span></div></article>
+          <article class="voice"><p>“Eu me reconheci nas fotos e nas peças. A experiência inteira passa leveza, alegria e muita personalidade.”</p><div class="voice-person"><span class="voice-avatar">T</span><span><strong>Taís R.</strong><small>Comunidade Aura</small></span></div></article>
+          <article class="voice"><p>“Uso o conjunto separado, junto, de dia e à noite. Bonito de verdade é quando a roupa acompanha a vida.”</p><div class="voice-person"><span class="voice-avatar">L</span><span><strong>Lívia C.</strong><small>Cliente online</small></span></div></article>
+        </div>
+        <p class="illustrative">Depoimentos ilustrativos para apresentação do projeto demonstrativo.</p>
+      </div>
+    </section>
+
+    <section class="journal" id="journal"><div class="wrap"><span class="section-label">Aura Journal</span><h2>Ideias que vestem<br>possibilidades.</h2><div class="journal-grid"><article class="story"><span>Caderno de estilo</span><h3>Três jeitos de levar mais cor para a rotina.</h3></article><article class="story"><span>Comunidade</span><h3>Personalidade não tem tamanho, idade ou ocasião.</h3></article></div></div></section>
+  </main>
+
+  <footer><div class="wrap footer-row"><small>Conceito demonstrativo autoral</small><a class="logo" href="#inicio">AURA POSITIVA</a><small>Fortaleza · 2026</small></div></footer>
+  <div class="toast" role="status">Peça adicionada à sacola.</div>
+  <script>
+    const bagCount = document.querySelector('#bagCount');
+    const toast = document.querySelector('.toast');
+    let total = 0;
+    document.querySelectorAll('.add').forEach((button) => button.addEventListener('click', () => {
+      total += 1;
+      bagCount.textContent = total;
+      toast.classList.add('show');
+      window.setTimeout(() => toast.classList.remove('show'), 1800);
+    }));
+  </script>
+</body>
+</html>

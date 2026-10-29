@@ -1,0 +1,185 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 750" width="1200" height="750" role="img" aria-label="Diagrama de arquitetura da plataforma de automação e dashboards">
+  <defs>
+    <linearGradient id="au-bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0B111F"/>
+      <stop offset="100%" stop-color="#090D16"/>
+    </linearGradient>
+    <linearGradient id="au-lime" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#A3E635"/>
+      <stop offset="100%" stop-color="#65A30D"/>
+    </linearGradient>
+    <linearGradient id="au-edge" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#84CC16" stop-opacity=".7"/>
+      <stop offset="100%" stop-color="#84CC16" stop-opacity=".12"/>
+    </linearGradient>
+    <radialGradient id="au-halo" cx="50%" cy="10%" r="65%">
+      <stop offset="0%" stop-color="#84CC16" stop-opacity=".13"/>
+      <stop offset="100%" stop-color="#84CC16" stop-opacity="0"/>
+    </radialGradient>
+    <marker id="au-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#84CC16" opacity=".65"/>
+    </marker>
+  </defs>
+
+  <rect width="1200" height="750" fill="url(#au-bg)"/>
+  <rect width="1200" height="750" fill="url(#au-halo)"/>
+
+  <!-- grid de fundo -->
+  <g opacity=".5">
+    <g stroke="#84CC16" stroke-opacity=".055">
+      <line x1="0" y1="96" x2="1200" y2="96"/><line x1="0" y1="184" x2="1200" y2="184"/>
+      <line x1="0" y1="272" x2="1200" y2="272"/><line x1="0" y1="360" x2="1200" y2="360"/>
+      <line x1="0" y1="448" x2="1200" y2="448"/><line x1="0" y1="536" x2="1200" y2="536"/>
+      <line x1="0" y1="624" x2="1200" y2="624"/>
+      <line x1="200" y1="0" x2="200" y2="750"/><line x1="400" y1="0" x2="400" y2="750"/>
+      <line x1="600" y1="0" x2="600" y2="750"/><line x1="800" y1="0" x2="800" y2="750"/>
+      <line x1="1000" y1="0" x2="1000" y2="750"/>
+    </g>
+  </g>
+
+  <!-- topo -->
+  <text x="56" y="62" font-family="JetBrains Mono, monospace" font-size="11" letter-spacing="2" fill="#84CC16">// ARQUITETURA</text>
+  <text x="56" y="92" font-family="Inter, system-ui, sans-serif" font-size="22" font-weight="700" fill="#F8FAFC">Plataforma de Automação &amp; Dashboards</text>
+
+  <!-- ===== COLUNA 1: FONTES ===== -->
+  <g>
+    <rect x="56" y="130" width="250" height="150" rx="16" fill="#111827" stroke="#FFFFFF" stroke-opacity=".08"/>
+    <text x="80" y="160" font-family="JetBrains Mono, monospace" font-size="10" letter-spacing="1.4" fill="#64748B">FONTES / ENTRADAS</text>
+    <g>
+      <rect x="76" y="176" width="210" height="28" rx="9" fill="#151D2E"/>
+      <circle cx="94" cy="190" r="4" fill="#60A5FA"/>
+      <text x="108" y="194" font-family="Inter, system-ui, sans-serif" font-size="11.5" fill="#CBD5E1">WhatsApp Web.js</text>
+    </g>
+    <g>
+      <rect x="76" y="210" width="210" height="28" rx="9" fill="#151D2E"/>
+      <circle cx="94" cy="224" r="4" fill="#FB923C"/>
+      <text x="108" y="228" font-family="Inter, system-ui, sans-serif" font-size="11.5" fill="#CBD5E1">Mercado Pago · Webhook</text>
+    </g>
+    <g>
+      <rect x="76" y="244" width="210" height="28" rx="9" fill="#151D2E"/>
+      <circle cx="94" cy="258" r="4" fill="#A3E635"/>
+      <text x="108" y="262" font-family="Inter, system-ui, sans-serif" font-size="11.5" fill="#CBD5E1">Cron · Scheduler</text>
+    </g>
+  </g>
+
+  <!-- ===== COLUNA 2: NÚCLEO ===== -->
+  <g>
+    <rect x="356" y="130" width="330" height="300" rx="18" fill="#111827" stroke="#84CC16" stroke-opacity=".28"/>
+    <rect x="356" y="130" width="330" height="4" rx="2" fill="url(#au-lime)"/>
+    <text x="384" y="164" font-family="JetBrains Mono, monospace" font-size="10" letter-spacing="1.4" fill="#84CC16">NÚCLEO · EDGE / SERVERLESS</text>
+
+    <g>
+      <rect x="382" y="182" width="278" height="56" rx="12" fill="#151D2E"/>
+      <text x="404" y="206" font-family="Inter, system-ui, sans-serif" font-size="12.5" font-weight="600" fill="#F8FAFC">API de Orquestração</text>
+      <text x="404" y="225" font-family="JetBrains Mono, monospace" font-size="9.5" fill="#64748B">retry · idempotência · rate limit</text>
+    </g>
+    <g>
+      <rect x="382" y="250" width="278" height="56" rx="12" fill="#151D2E"/>
+      <text x="404" y="274" font-family="Inter, system-ui, sans-serif" font-size="12.5" font-weight="600" fill="#F8FAFC">Outbox de Mensagens</text>
+      <text x="404" y="293" font-family="JetBrains Mono, monospace" font-size="9.5" fill="#64748B">fila durável · sem perda</text>
+    </g>
+    <g>
+      <rect x="382" y="318" width="278" height="56" rx="12" fill="#151D2E"/>
+      <text x="404" y="342" font-family="Inter, system-ui, sans-serif" font-size="12.5" font-weight="600" fill="#F8FAFC">Motor de IA</text>
+      <text x="404" y="361" font-family="JetBrains Mono, monospace" font-size="9.5" fill="#64748B">Gemini 2.5 Flash · texto + visão</text>
+    </g>
+    <g>
+      <rect x="382" y="386" width="278" height="30" rx="10" fill="rgba(132,204,22,.1)" stroke="#84CC16" stroke-opacity=".3"/>
+      <text x="521" y="405" font-family="JetBrains Mono, monospace" font-size="10" fill="#84CC16" text-anchor="middle">memória persistente por usuário</text>
+    </g>
+  </g>
+
+  <!-- ===== COLUNA 3: DADOS + SAÍDA ===== -->
+  <g>
+    <rect x="736" y="130" width="220" height="150" rx="16" fill="#111827" stroke="#FFFFFF" stroke-opacity=".08"/>
+    <text x="760" y="160" font-family="JetBrains Mono, monospace" font-size="10" letter-spacing="1.4" fill="#64748B">DADOS</text>
+    <g>
+      <rect x="756" y="176" width="180" height="40" rx="10" fill="#151D2E"/>
+      <text x="776" y="193" font-family="Inter, system-ui, sans-serif" font-size="11.5" font-weight="600" fill="#F8FAFC">PostgreSQL</text>
+      <text x="776" y="208" font-family="JetBrains Mono, monospace" font-size="9" fill="#64748B">RLS · índices</text>
+    </g>
+    <g>
+      <rect x="756" y="224" width="180" height="40" rx="10" fill="#151D2E"/>
+      <text x="776" y="241" font-family="Inter, system-ui, sans-serif" font-size="11.5" font-weight="600" fill="#F8FAFC">Storage</text>
+      <text x="776" y="256" font-family="JetBrains Mono, monospace" font-size="9" fill="#64748B">fotos de refeição</text>
+    </g>
+  </g>
+
+  <g>
+    <rect x="736" y="300" width="220" height="130" rx="16" fill="#111827" stroke="#FFFFFF" stroke-opacity=".08"/>
+    <text x="760" y="330" font-family="JetBrains Mono, monospace" font-size="10" letter-spacing="1.4" fill="#64748B">SAÍDAS</text>
+    <g>
+      <rect x="756" y="346" width="180" height="32" rx="9" fill="#151D2E"/>
+      <circle cx="774" cy="362" r="4" fill="#84CC16"/>
+      <text x="788" y="366" font-family="Inter, system-ui, sans-serif" font-size="11.5" fill="#CBD5E1">WhatsApp</text>
+    </g>
+    <g>
+      <rect x="756" y="386" width="180" height="32" rx="9" fill="#151D2E"/>
+      <circle cx="774" cy="402" r="4" fill="#84CC16"/>
+      <text x="788" y="406" font-family="Inter, system-ui, sans-serif" font-size="11.5" fill="#CBD5E1">Dashboard</text>
+    </g>
+  </g>
+
+  <!-- ===== SETOR DE OBSERVABILIDADE ===== -->
+  <g>
+    <rect x="56" y="310" width="250" height="120" rx="16" fill="#111827" stroke="#FFFFFF" stroke-opacity=".08"/>
+    <text x="80" y="340" font-family="JetBrains Mono, monospace" font-size="10" letter-spacing="1.4" fill="#64748B">RESILIÊNCIA</text>
+    <g>
+      <rect x="76" y="356" width="210" height="20" rx="7" fill="#151D2E"/>
+      <text x="90" y="370" font-family="JetBrains Mono, monospace" font-size="9" fill="#94A3B8">① docker on-boot</text>
+    </g>
+    <g>
+      <rect x="76" y="380" width="210" height="20" rx="7" fill="#151D2E"/>
+      <text x="90" y="394" font-family="JetBrains Mono, monospace" font-size="9" fill="#94A3B8">② restart:always</text>
+    </g>
+    <g>
+      <rect x="76" y="404" width="210" height="20" rx="7" fill="#151D2E"/>
+      <text x="90" y="418" font-family="JetBrains Mono, monospace" font-size="9" fill="#94A3B8">③ cron healthcheck</text>
+    </g>
+  </g>
+
+  <!-- ===== CONECTORES ===== -->
+  <g stroke="url(#au-edge)" stroke-width="2" fill="none" marker-end="url(#au-arrow)">
+    <path d="M306 205 H 350"/>
+    <path d="M686 210 H 730"/>
+    <path d="M686 300 H 730"/>
+    <path d="M306 370 H 350" opacity=".5"/>
+  </g>
+  <g stroke="#84CC16" stroke-opacity=".28" stroke-width="1.5" fill="none" stroke-dasharray="4 5">
+    <path d="M521 430 V 470 H 180 V 436"/>
+    <path d="M521 430 V 470"/>
+  </g>
+  <text x="530" y="464" font-family="JetBrains Mono, monospace" font-size="9" fill="#64748B">eventos · métricas · filas</text>
+
+  <!-- ===== BARRA INFERIOR ===== -->
+  <g>
+    <rect x="56" y="470" width="900" height="76" rx="16" fill="#0F1626" stroke="#FFFFFF" stroke-opacity=".07"/>
+    <text x="80" y="498" font-family="JetBrains Mono, monospace" font-size="10" letter-spacing="1.4" fill="#64748B">FLUXO DE UMA MENSAGEM</text>
+    <g>
+      <rect x="80" y="510" width="130" height="24" rx="8" fill="#151D2E"/>
+      <text x="145" y="526" font-family="Inter, system-ui, sans-serif" font-size="10.5" fill="#CBD5E1" text-anchor="middle">Mensagem chega</text>
+      <path d="M214 522 H 236" stroke="#84CC16" stroke-opacity=".5" stroke-width="1.6" marker-end="url(#au-arrow)"/>
+      <rect x="240" y="510" width="150" height="24" rx="8" fill="#151D2E"/>
+      <text x="315" y="526" font-family="Inter, system-ui, sans-serif" font-size="10.5" fill="#CBD5E1" text-anchor="middle">Perfil + memória</text>
+      <path d="M394 522 H 416" stroke="#84CC16" stroke-opacity=".5" stroke-width="1.6" marker-end="url(#au-arrow)"/>
+      <rect x="420" y="510" width="160" height="24" rx="8" fill="#151D2E"/>
+      <text x="500" y="526" font-family="Inter, system-ui, sans-serif" font-size="10.5" fill="#CBD5E1" text-anchor="middle">Regra + contexto</text>
+      <path d="M584 522 H 606" stroke="#84CC16" stroke-opacity=".5" stroke-width="1.6" marker-end="url(#au-arrow)"/>
+      <rect x="610" y="510" width="150" height="24" rx="8" fill="rgba(132,204,22,.12)"/>
+      <text x="685" y="526" font-family="Inter, system-ui, sans-serif" font-size="10.5" fill="#A3E635" text-anchor="middle">Resposta via IA</text>
+      <path d="M764 522 H 786" stroke="#84CC16" stroke-opacity=".5" stroke-width="1.6" marker-end="url(#au-arrow)"/>
+      <rect x="790" y="510" width="146" height="24" rx="8" fill="#151D2E"/>
+      <text x="863" y="526" font-family="Inter, system-ui, sans-serif" font-size="10.5" fill="#CBD5E1" text-anchor="middle">Outbox persiste</text>
+    </g>
+  </g>
+
+  <!-- STATS -->
+  <g>
+    <rect x="982" y="470" width="162" height="76" rx="16" fill="#111827" stroke="#84CC16" stroke-opacity=".25"/>
+    <text x="1063" y="498" font-family="JetBrains Mono, monospace" font-size="9.5" fill="#64748B" text-anchor="middle">CUSTO DE INFRA</text>
+    <text x="1063" y="528" font-family="Inter, system-ui, sans-serif" font-size="24" font-weight="700" fill="#84CC16" text-anchor="middle">R$ 0</text>
+  </g>
+
+  <text x="56" y="590" font-family="JetBrains Mono, monospace" font-size="9.5" fill="#475569">Node.js · Next.js 14 · Supabase · Docker · Oracle Cloud Always Free · Vercel Hobby</text>
+  <text x="56" y="616" font-family="JetBrains Mono, monospace" font-size="9.5" fill="#475569">Deploy automatizado · healthcheck · recovery automático após queda de energia</text>
+</svg>
