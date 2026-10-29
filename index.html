@@ -234,10 +234,12 @@
     right: 0;
     z-index: 100;
     padding: 18px 0;
-    transition: padding 0.3s var(--ease), background-color 0.3s var(--ease), border-color 0.3s var(--ease);
+    transition: all 0.3s var(--ease);
   }
   .site-header.scrolled {
-    background: rgba(10, 10, 11, 0.97);
+    background: rgba(10, 10, 11, 0.85);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
     border-bottom: 1px solid var(--border-soft);
     padding: 12px 0;
   }
@@ -1110,11 +1112,215 @@
       top: 0; right: -100%;
       width: 80%;
       max-width: 320px;
-      height:
+      height: 100dvh;
+      background: var(--bg-1);
+      flex-direction: column;
+      justify-content: center;
+      gap: 24px;
+      transition: right 0.4s var(--ease);
+      border-left: 1px solid var(--border-soft);
+      padding: 40px;
+    }
+    .nav.open { right: 0; }
+    .nav a { color: var(--text); font-size: 1.1rem; }
+    .menu-toggle { display: grid; }
+    .manifesto-grid, .services-grid, .cases-grid, .tech-grid, .modalidades-grid { grid-template-columns: 1fr; }
+    .process-timeline { grid-template-columns: 1fr; gap: 32px; }
+    .process-timeline::before { display: none; }
+    .footer-grid { grid-template-columns: 1fr 1fr; gap: 32px; }
+    .cta-card { padding: 48px 24px; }
+  }
 
-[web_fetch response truncated: estimated 19012 tokens exceeded 16000; omitted middle content.]
+  @media (max-width: 480px) {
+    .container { padding: 0 16px; }
+    .footer-grid { grid-template-columns: 1fr; }
+    .footer-bottom { flex-direction: column; gap: 12px; text-align: center; font-size: 0.78rem; }
+    .hero-cta { flex-direction: column; align-items: stretch; }
+    .btn { justify-content: center; }
+  }
 
-th="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+  /* Print */
+  @media print {
+    .site-header, .floating-card, .cta-card::before { display: none; }
+  }
+
+  /* Reduce motion */
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+
+  /* Selection */
+  ::selection { background: var(--lime); color: var(--bg-0); }
+
+  /* =========================================================
+     SNAKE BORDER (cobrinha animada) - herdada do Pedro Rodrigo
+     Cor dourada: #E8C77E / #C9A961 / #FFE0B2
+     ========================================================= */
+  @property --border-angle {
+    syntax: '<angle>';
+    inherits: false;
+    initial-value: 0deg;
+  }
+  @keyframes spin-cobra {
+    to { --border-angle: 360deg; }
+  }
+  .snake-border {
+    isolation: isolate;
+  }
+  .snake-border::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 1.5px;
+    background: conic-gradient(
+      from var(--border-angle),
+      transparent 0deg,
+      transparent 70deg,
+      #E8C77E 85deg,
+      #C9A961 95deg,
+      #FFE0B2 105deg,
+      #C9A961 115deg,
+      #E8C77E 125deg,
+      transparent 140deg,
+      transparent 360deg
+    );
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+            mask-composite: exclude;
+    animation: spin-cobra 5s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite;
+    pointer-events: none;
+    z-index: -1;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .snake-border::before { animation: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="site-header" id="header">
+  <div class="container">
+    <a href="#" class="logo" aria-label="Wesley Carvalho - início">
+      <span class="logo-mark">W</span>
+      <span>Wesley<span class="text-lime">.</span></span>
+    </a>
+    <nav class="nav" id="nav" aria-label="Navegação">
+      <a href="#cases">Cases</a>
+      <a href="#stack">Stack</a>
+      <a href="#servicos">Serviços</a>
+      <a href="#processo">Processo</a>
+      <a href="https://github.com/Meckwes" target="_blank" rel="noopener" class="nav-icon-btn" aria-label="GitHub">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.4 3-.405 1.02.005 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+      </a>
+      <a href="https://www.linkedin.com/in/wesleyr-carvalho" target="_blank" rel="noopener" class="nav-icon-btn" aria-label="LinkedIn">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+      </a>
+      <a href="https://wa.me/5541984898998?text=Oi%20Wesley!%20Vim%20pelo%20seu%20site%20%E2%9C%A8" class="nav-cta" target="_blank" rel="noopener">
+        Vamos conversar
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+      </a>
+    </nav>
+    <button class="menu-toggle" id="menu-toggle" aria-label="Abrir menu" aria-expanded="false">
+      <span></span>
+    </button>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="container">
+    <div class="hero-content">
+      <div class="otw-badge">
+        <span class="otw-badge-dot" aria-hidden="true"></span>
+        Open to Work · Q3 2026
+      </div>
+      <h1>
+        Transformo ideias em <em>negócios digitais lucrativos</em>
+      </h1>
+      <p class="hero-sub">
+        Landing pages de alta conversão, MVPs funcionais, automações WhatsApp + IA. Do conceito ao primeiro cliente em dias, não meses.
+      </p>
+      <div class="hero-cta">
+        <a href="https://wa.me/5541984898998?text=Oi%20Wesley!%20Tenho%20uma%20ideia%20de%20neg%C3%B3cio%20e%20queria%20trocar%20uma%20ideia%20%E2%9C%A8" class="btn btn-primary" target="_blank" rel="noopener">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654A11.882 11.882 0 0 0 12.045 23.794h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg>
+          Vamos conversar
+        </a>
+        <a href="https://www.linkedin.com/in/wesleyr-carvalho" class="btn btn-ghost" target="_blank" rel="noopener">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          LinkedIn
+        </a>
+      </div>
+      <div class="hero-meta">
+        <div class="hero-meta-item">
+          <div class="hero-meta-num">12+</div>
+          <div class="hero-meta-label">Projetos<br>entregues</div>
+        </div>
+        <div class="hero-meta-item">
+          <div class="hero-meta-num">7d</div>
+          <div class="hero-meta-label">Tempo médio<br>de entrega</div>
+        </div>
+        <div class="hero-meta-item">
+          <div class="hero-meta-num">100%</div>
+          <div class="hero-meta-label">Founder<br>hands-on</div>
+        </div>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="floating-card floating-card-1 snake-border">
+        <div class="floating-icon lime">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg>
+        </div>
+        <div>
+          <strong>Produtos em produção</strong>
+          <span>Next.js + Supabase + IA</span>
+        </div>
+      </div>
+      <div class="floating-card floating-card-2 snake-border">
+        <div class="floating-icon orange">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
+        </div>
+        <div>
+          <strong>WhatsApp + IA</strong>
+          <span>Bot que vende 24/7</span>
+        </div>
+      </div>
+      <div class="hero-photo">
+        <img src="images/wesley-photo.jpg" alt="Wesley Carvalho — Desenvolvedor Full Stack & IA" loading="eager" width="800" height="1000" />
+        <div class="hero-photo-tag snake-border">
+          <div class="hero-photo-tag-name">Wesley Carvalho</div>
+          <div class="hero-photo-tag-roles">Dev Full Stack · IA · Suporte</div>
+          <div class="hero-photo-tag-roles">JS · SQL · ML · Next.js</div>
+          <div class="hero-photo-tag-sub">// open to work</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MANIFESTO -->
+<section class="manifesto">
+  <div class="container">
+    <div class="text-center reveal">
+      <span class="section-eyebrow">Como penso</span>
+      <h2 class="section-title mx-auto">Não entrego sites. Entrego <span class="text-lime">negócios funcionando</span>.</h2>
+      <p class="section-subtitle mx-auto">Cada projeto começa com uma pergunta: <em style="color:var(--text);">"isso vai pagar o investimento?"</em>. Se sim, eu construo. Se não, nem começo.</p>
+    </div>
+    <div class="manifesto-grid">
+      <div class="manifesto-card reveal">
+        <div class="manifesto-card-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2L2 7l10 5 10-5-10-5z"></path><path d="M2 17l10 5 10-5"></path><path d="M2 12l10 5 10-5"></path></svg>
+        </div>
+        <h3>Construo, não só projeto</h3>
+        <p>Founder hands-on. Escrevo o código, faço o deploy, vejo funcionar. Sem terceirização, sem "ah, o dev tá de férias".</p>
+      </div>
+      <div class="manifesto-card reveal reveal-delay-1">
+        <div class="manifesto-card-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
         </div>
         <h3>Velocidade &gt; Perfeição</h3>
         <p>Entrego MVP funcional em 7 dias. Aperfeiçoo com usuário real, não em reunião. Aperto botão, vejo dado, itera.</p>
@@ -1187,14 +1393,14 @@ th="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d
 <section id="cases">
   <div class="container">
     <div class="reveal">
-      <span class="section-eyebrow">Projetos selecionados</span>
+      <span class="section-eyebrow">Cases reais</span>
       <h2 class="section-title">Projetos que <span class="text-lime">estão no ar</span></h2>
-      <p class="section-subtitle">Produtos em produção e demos autorais criadas para explorar novas experiências — todos funcionam de verdade.</p>
+      <p class="section-subtitle">Cada um nasceu de uma ideia de cliente. Alguns escalaram, outros validando — todos funcionam de verdade.</p>
     </div>
     <div class="cases-grid">
-      <article class="case-card reveal">
+      <article class="case-card reveal snake-border">
         <div class="case-card-img">
-          <img src="images/case-fity.webp" alt="Fity — personal trainer IA no WhatsApp" loading="lazy" decoding="async" width="600" height="375" />
+          <img src="images/case-fity.png" alt="Fity — personal trainer IA no WhatsApp" loading="lazy" width="600" height="400" />
         </div>
         <div class="case-card-body">
           <span class="case-card-tag">Em produção</span>
@@ -1218,9 +1424,9 @@ th="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d
         </div>
       </article>
 
-      <article class="case-card reveal reveal-delay-1">
+      <article class="case-card reveal reveal-delay-1 snake-border">
         <div class="case-card-img">
-          <img src="images/case-pedro.webp" alt="Pedro Rodrigo — portfólio sênior de Analista Fiscal em Fortaleza" loading="lazy" decoding="async" width="600" height="375" />
+          <img src="images/case-pedro.png" alt="Pedro Rodrigo — portfólio sênior de Analista Fiscal em Fortaleza" loading="lazy" width="600" height="400" />
         </div>
         <div class="case-card-body">
           <span class="case-card-tag">Portfólio sênior</span>
@@ -1243,59 +1449,59 @@ th="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d
         </div>
       </article>
 
-      <article class="case-card reveal reveal-delay-1">
+      <article class="case-card reveal reveal-delay-1 snake-border">
         <div class="case-card-img">
-          <img src="images/case-mesa-viva.webp" alt="Mesa Viva — demo autoral de foodtech e alimentação saudável" loading="lazy" decoding="async" width="600" height="375" />
+          <img src="images/case-marecafe.png" alt="Maré Café — landing page de cafeteria em Fortaleza" loading="lazy" width="600" height="400" />
         </div>
         <div class="case-card-body">
-          <span class="case-card-tag">Demo autoral</span>
-          <h3>Mesa Viva · Foodtech saudável</h3>
-          <p>Experiência de alimentação saudável com fotografias reais, cardápio filtrável, sacola interativa, depoimentos e narrativa de marca.</p>
+          <span class="case-card-tag">Landing page</span>
+          <h3>Maré Café · Beira-mar de Fortaleza</h3>
+          <p>Landing de cafeteria pé na areia com cardápio interativo, mapa embed, WhatsApp CTA e horário dinâmico. Mobile-first, SEO local.</p>
           <div class="case-card-metric">
             <span class="case-card-metric-num">100%</span>
-            <span class="case-card-metric-label">conceito autoral<br>responsivo + interativo</span>
+            <span class="case-card-metric-label">mobile-first<br>Schema.org + Google Maps</span>
           </div>
           <div class="case-card-stack">
             <span>HTML/CSS/JS</span>
-            <span>UI/UX</span>
-            <span>E-commerce</span>
+            <span>Schema.org</span>
+            <span>SEO Local</span>
             <span>Mobile-first</span>
           </div>
-          <a href="demos/mesa-viva/" target="_blank" rel="noopener" class="case-card-link">
-            Ver demo
+          <a href="https://x9jeogaaok2wg.space.minimax.io" target="_blank" rel="noopener" class="case-card-link">
+            Ver ao vivo
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
           </a>
         </div>
       </article>
 
-      <article class="case-card reveal reveal-delay-2">
+      <article class="case-card reveal reveal-delay-2 snake-border">
         <div class="case-card-img">
-          <img src="images/case-aura-positiva.webp" alt="Aura Positiva — demo autoral de e-commerce editorial de moda" loading="lazy" decoding="async" width="600" height="375" />
+          <img src="images/case-marcozero.png" alt="Marco Zero — landing page de café cultural na Barra do Ceará" loading="lazy" width="600" height="400" />
         </div>
         <div class="case-card-body">
-          <span class="case-card-tag">Demo autoral</span>
-          <h3>Aura Positiva · Moda editorial</h3>
-          <p>E-commerce conceito com fotografia editorial, coleção responsiva, sacola interativa, depoimentos e narrativa de marca independente.</p>
+          <span class="case-card-tag">Landing page</span>
+          <h3>Marco Zero · Café e Culinária Cearense</h3>
+          <p>Landing de casa cultural + cafeteria no casarão histórico da Barra do Ceará. 7 seções, cardápio, programação cultural, mapa e WhatsApp.</p>
           <div class="case-card-metric">
-            <span class="case-card-metric-num">03</span>
-            <span class="case-card-metric-label">looks editoriais<br>coleção + sacola interativa</span>
+            <span class="case-card-metric-num">4.7★</span>
+            <span class="case-card-metric-label">4.759 avaliações<br>Google (case real)</span>
           </div>
           <div class="case-card-stack">
             <span>HTML/CSS/JS</span>
-            <span>Direção de arte</span>
-            <span>E-commerce</span>
+            <span>Schema.org</span>
+            <span>IA imagens</span>
             <span>Mobile-first</span>
           </div>
-          <a href="demos/aura-positiva/" target="_blank" rel="noopener" class="case-card-link">
-            Ver demo
+          <a href="https://02yypxvsp1pzz.space.minimax.io" target="_blank" rel="noopener" class="case-card-link">
+            Ver ao vivo
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
           </a>
         </div>
       </article>
 
-      <article class="case-card reveal reveal-delay-3">
+      <article class="case-card reveal reveal-delay-3 snake-border">
         <div class="case-card-img">
-          <img src="images/case-ecommerce.webp" alt="E-commerce admin — dashboard white-label" loading="lazy" decoding="async" width="600" height="375" />
+          <img src="images/case-ecommerce.png" alt="E-commerce admin — dashboard white-label" loading="lazy" width="600" height="400" />
         </div>
         <div class="case-card-body">
           <span class="case-card-tag">Template white-label</span>
@@ -1442,7 +1648,7 @@ th="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d
         </a>
       </div>
 
-      <div class="mod-card featured reveal reveal-delay-1">
+      <div class="mod-card featured reveal reveal-delay-1 snake-border">
         <span class="mod-badge">⭐ Mais comum</span>
         <div class="mod-icon">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a9 9 0 1 1-6.219-8.56"></path><path d="M22 4 12 14.01l-3-3"></path></svg>
@@ -1534,8 +1740,8 @@ th="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d
         <h4>Cases</h4>
         <ul>
           <li><a href="https://fityai.vercel.app" target="_blank" rel="noopener">Fity · SaaS</a></li>
-          <li><a href="demos/mesa-viva/" target="_blank" rel="noopener">Mesa Viva · Demo</a></li>
-          <li><a href="demos/aura-positiva/" target="_blank" rel="noopener">Aura Positiva · Demo</a></li>
+          <li><a href="https://x9jeogaaok2wg.space.minimax.io" target="_blank" rel="noopener">Maré Café</a></li>
+          <li><a href="https://02yypxvsp1pzz.space.minimax.io" target="_blank" rel="noopener">Marco Zero</a></li>
           <li><a href="#cases">E-commerce</a></li>
         </ul>
       </div>
@@ -1580,35 +1786,12 @@ th="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d
 </footer>
 
 <script>
-  // Header scroll + pause de animações enquanto a página está em movimento
+  // Header scroll
   const header = document.getElementById('header');
-  const root = document.documentElement;
-  let headerIsScrolled = false;
-  let scrollFrame = 0;
-  let scrollIdleTimer;
-
-  const updateHeader = () => {
-    const shouldBeScrolled = window.scrollY > 50;
-    if (shouldBeScrolled !== headerIsScrolled) {
-      header.classList.toggle('scrolled', shouldBeScrolled);
-      headerIsScrolled = shouldBeScrolled;
-    }
-  };
-
-  const handleScroll = () => {
-    if (!scrollFrame) {
-      scrollFrame = requestAnimationFrame(() => {
-        updateHeader();
-        root.classList.add('is-scrolling');
-        scrollFrame = 0;
-      });
-    }
-    clearTimeout(scrollIdleTimer);
-    scrollIdleTimer = setTimeout(() => root.classList.remove('is-scrolling'), 140);
-  };
-
-  updateHeader();
-  window.addEventListener('scroll', handleScroll, { passive: true });
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 50) header.classList.add('scrolled');
+    else header.classList.remove('scrolled');
+  }, { passive: true });
 
   // Mobile menu
   const menuToggle = document.getElementById('menu-toggle');
@@ -1629,22 +1812,15 @@ th="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d
   });
 
   // Reveal on scroll
-  const revealItems = document.querySelectorAll('.reveal');
-  const useLightMotion = window.matchMedia('(max-width: 980px), (pointer: coarse)').matches;
-
-  if (useLightMotion) {
-    revealItems.forEach(el => el.classList.add('visible'));
-  } else {
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-          observer.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.12, rootMargin: '0px 0px -60px 0px' });
-    revealItems.forEach(el => observer.observe(el));
-  }
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -60px 0px' });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
   // Smooth scroll
   document.querySelectorAll('a[href^="#"]').forEach(anchor => {
